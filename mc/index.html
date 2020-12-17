@@ -5,14 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IFrame host</title>
     <script>
-		function sayHelloWorld() {		
-			var iframe1 = document.getElementById('child1');
-			iframe1.contentWindow.postMessage('Hello world, from host to child1!', '*', [channel.port2]);
-			
-			var iframe2 = document.getElementById('child2');
-			iframe2.contentWindow.postMessage('Hello world, from host to child2!', '*');
-		}
-	    
+		let channel;
+		
 		function onMessageFromChild(e) {
 			console.log(e);
 			
@@ -22,8 +16,21 @@
 			channel.port1.onmessage = onMessageFromChild;
 		}
 		
-		var channel = new MessageChannel();	
-		channel.port1.onmessage = onMessageFromChild;
+		function sayHelloWorld() {		
+			channel = new MessageChannel();	
+			channel.port1.onmessage = onMessageFromChild;
+		
+			let iframe1 = document.getElementById('child1');
+			iframe1.contentWindow.postMessage('Hello world, from host to child1!', '*', [channel.port2]);
+			
+			let iframe2 = document.getElementById('child2');
+			iframe2.contentWindow.postMessage('Hello world, from host to child2!', '*');
+		}
+	    
+		function onMessageFromChild(e) {
+			console.log(e);			
+			document.getElementById('answer').innerText = new Date().getTime() + ' - ' + e.data;
+		}	
     </script>
   </head>
   <body>
