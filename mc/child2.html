@@ -6,6 +6,7 @@
     <title>IFrame child2</title>
     <script>
 		window.addEventListener('message', onMessage);
+	    
 		function onMessage(e) {
 			console.log(e);
 			document.body.innerText = new Date().getTime() + ' - ' + e.data;
