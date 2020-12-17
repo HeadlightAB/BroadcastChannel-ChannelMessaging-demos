@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>IFrame child2</title>
+    <script>
+		window.addEventListener('message', onMessage);
+		function onMessage(e) {
+			console.log(e);
+			document.body.innerText = new Date().getTime() + ' - ' + e.data;
+		}
+    </script>
+  </head>
+  <body style="background-color:lightblue">
+  </body>
+</html>

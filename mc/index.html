@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>IFrame host</title>
+    <script>
+		function sayHelloWorld() {		
+			var iframe1 = document.getElementById('child1');
+			iframe1.contentWindow.postMessage('Hello world, from host to child1!', '*', [channel.port2]);
+			
+			var iframe2 = document.getElementById('child2');
+			iframe2.contentWindow.postMessage('Hello world, from host to child2!', '*');
+		}
+		function onMessageFromChild(e) {
+			console.log(e);
+			
+			document.getElementById('answer').innerText = new Date().getTime() + ' - ' + e.data;
+			channel = new MessageChannel();
+			channel.port1.onmessage = onMessageFromChild;
+		}
+		
+		var channel = new MessageChannel();	
+		channel.port1.onmessage = onMessageFromChild;
+    </script>
+  </head>
+  <body>
+	<h1>Press button to Say Hello to iframes below!</h1>
+	<p><button onclick="sayHelloWorld()">Say it</button> and have a look in the console log at the same time.</p>
+	<p style="background-color: lightgray;" id="answer">&nbsp;</p>
+	<br/>
+	<iframe id="child1" src="child1.html" height="200px" width="100%"></iframe>
+	<br/>
+	<iframe id="child2" src="child2.html" height="200px" width="100%"></iframe>
+  </body>
+</html>

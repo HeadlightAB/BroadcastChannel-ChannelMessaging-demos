@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>IFrame child1</title>
+    <script>		
+		window.addEventListener('message', onMessage);
+  
+		function onMessage(e) {
+			console.log(e);
+			document.body.innerHTML = new Date().getTime() + ' - ' + e.data;
+			
+			e.ports[0].postMessage('Hello world to you, from the IFrame child1, the pink one...', e.ports[0]);
+		}
+    </script>
+  </head>
+  <body style="background-color:pink">
+  </body>
+</html>
