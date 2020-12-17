@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Recipient</title>
     <script>
@@ -10,16 +9,15 @@
         const channel = new BroadcastChannel('my_bus');
 
         channel.onmessage = function(e) {
-            console.log('Received', e.data);
-			var li = document.createElement('li');
-			li.appendChild(document.createTextNode(e.data))
-			document.getElementById('messages').appendChild(li);
+        	console.log('Received', e.data);
+		var li = document.createElement('li');
+		li.appendChild(document.createTextNode(e.data))
+		document.getElementById('messages').appendChild(li);
         };   
     </script>
   </head>
   <body>
 	<h1>Messages received will appear below</h1>
-	<ul id="messages">
-	</ul>		
+	<ul id="messages"></ul>		
   </body>
 </html>
